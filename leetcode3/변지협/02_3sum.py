@@ -1,13 +1,16 @@
+#
+
 '''
 1. 아이디어 :
-- 정렬 후 투포인터
+- 완전 탐색
 
 2. 시간복잡도 :
     O(n^2)
 
 3. 자료구조/알고리즘 :
-- 투포인터
+
 '''
+
 
 class Solution:
     def threeSum(self, nums: list[int]) -> list[list[int]]:
