@@ -1,5 +1,3 @@
-#
-
 '''
 1. 아이디어 :
 - 완전 탐색
@@ -21,4 +19,3 @@ class Solution:
                 if sum == target:
                     return [i,i+j+1]
             
-        
