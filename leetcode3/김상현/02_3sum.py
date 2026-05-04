@@ -1,4 +1,5 @@
-def three_sum(nums):
+# LeetCode 15. 3Sum
+def threeSum(nums):
     nums.sort()
     answer = []
 
