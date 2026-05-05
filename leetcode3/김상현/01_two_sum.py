@@ -1,5 +1,5 @@
-# LeetCode 1. TwoSum
-def two_sum(nums, target):
+# LeetCode 1. Two Sum
+def twoSum(nums, target):
     d = {}
     for i, num in enumerate(nums):
         need = target - num
