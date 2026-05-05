@@ -1,0 +1,19 @@
+# 1. 아이디어 :
+#    edges[i] = j 의미 → i에서 j로 가는 간선
+#    j의 score에 i를 누적 (score[edges[i]] += i)
+#    최종적으로 score 배열에서 최댓값의 index 반환
+
+# 2. 시간복잡도 :
+#    O(n) — edges 한 번 순회 + max/index 한 번 순회
+
+# 3. 자료구조/알고리즘 :
+#    score 배열 (누적합)
+
+class Solution:
+    def edgeScore(self, edges: List[int]) -> int:
+        score = [0] * len(edges)
+        
+        for i in range(len(edges)):
+            score[edges[i]] += i
+        
+        return score.index(max(score))
