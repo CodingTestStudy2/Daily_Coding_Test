@@ -1,0 +1,13 @@
+# 1. 아이디어:
+#    1부터 n까지 각 숫자를 천 단위 콤마 형식으로 변환 후
+#    콤마 개수를 generator로 바로 합산
+#
+# 2. 시간복잡도: O(n)
+#
+# 3. 공간복잡도: O(1)
+#    - 리스트 대신 generator expression 사용 (메모리 효율적)
+#
+# 4. 자료구조/알고리즘: generator expression + 문자열 변환
+
+n = int(input())
+print(sum(format(i, ',').count(',') for i in range(1, n + 1)))
