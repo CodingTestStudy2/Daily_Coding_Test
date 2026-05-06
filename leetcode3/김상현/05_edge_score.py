@@ -10,7 +10,7 @@ def edgeScore(self, edges: List[int]) -> int:
     max_score = 0
     answer = 0
 
-    # 최대점수 노드 찾기 (같닫면 작은 index 유지)
+    # 최대점수 노드 찾은 후 인덱스 반환
     for i, value in enumerate(scores):
         if value > max_score:
             max_score = value
