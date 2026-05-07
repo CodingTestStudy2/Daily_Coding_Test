@@ -1,0 +1,33 @@
+# 1. 아이디어:
+#    - 모든 segment의 start/end 좌표를 이벤트로 수집
+#    - start엔 +color, end엔 -color 기록 (차분 배열 개념)
+#    - 좌표를 정렬 후 왼→오 스윕하며 누적합 계산
+#    - 누적합이 달라지는 경계마다 새 구간 기록
+
+# 2. 시간복잡도: O(n log n)  ← 정렬 때문에 O(n) 불가
+#
+# 3. 공간복잡도: O(n)        ← 좌표/이벤트 저장
+#
+# 4. 자료구조/알고리즘: 차분 배열(Difference Array) + 스윕 라인(Sweep Line)
+
+def splitPainting(segments):
+    # step1: 차분 배열
+    diff = {}
+    for start, end, color in segments:
+        diff[start] = diff.get(start, 0) + color
+        diff[end]   = diff.get(end,   0) - color
+
+    # step2: 좌표 정렬 후 스윕
+    result  = []
+    cur_sum = 0
+    prev    = None
+
+    for point in sorted(diff.keys()):
+        # 이전 구간 마감
+        if prev is not None and cur_sum > 0:
+            result.append([prev, point, cur_sum])
+
+        cur_sum += diff[point]
+        prev = point
+
+    return result
