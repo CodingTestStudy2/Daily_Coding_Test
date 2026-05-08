@@ -1,3 +1,41 @@
+/* 2차 해결
+
+1. 아이디어 : 수식을 2*(k-i)로 간소화, 맨 처음과 맨끝 점 사이의 거리만 갱신
+
+2. 시간복잡도 : O(N)
+
+3. 자료구조/알고리즘 : 슬라이딩 윈도우
+
+ */
+
+class Solution {
+    public int minimumDistance(int[] nums) {
+        //j-i+k-j+k-i = 2*(k-i)
+        int[] start = new int[101];
+        int[] end = new int[101];
+        
+        int sum = Integer.MAX_VALUE;
+
+        Arrays.fill(start, -1);
+        Arrays.fill(end, -1);
+
+        for(int i=0; i<nums.length; i++) {
+            int n = nums[i];
+
+            if(start[n] == -1) start[n] = i;
+            else if(end[n] == -1) end[n] = i;
+            else {
+                sum = Math.min(sum, 2*(i-start[n]));
+                start[n] = end[n];
+                end[n] = i;
+            }
+        }
+
+        if(sum == Integer.MAX_VALUE) return -1;
+        else return sum;
+    }
+}
+
 /* 1차 해결
 
 1. 아이디어 : 이중 리스트를 만들어, 최대 100개의 값 초기화
