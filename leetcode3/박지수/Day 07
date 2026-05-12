@@ -1,0 +1,16 @@
+def champagneTower(poured, query_row, query_glass):
+    # 2D 배열 초기화 (모두 0.0)
+    tower = [[0.0] * (i + 1) for i in range(query_row + 1)]
+    
+    # 맨 위 컵에 붓기
+    tower[0][0] = poured
+    
+    # 위에서 아래로 흘러내리기
+    for i in range(query_row):
+        for j in range(i + 1):
+            overflow = max(0.0, tower[i][j] - 1.0)
+            tower[i+1][j]   += overflow / 2
+            tower[i+1][j+1] += overflow / 2
+    
+    # 최대 1.0 (컵은 꽉 차면 끝)
+    return min(1.0, tower[query_row][query_glass])
