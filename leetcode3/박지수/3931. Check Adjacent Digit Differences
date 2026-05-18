@@ -1,0 +1,16 @@
+'''
+아이디어 :
+문자열을 순회하며 인접한 두 글자의 차이가 2 초과면 즉시 False, 끝까지 통과하면 True
+시간복잡도 :
+O(n) — 문자열 길이만큼 한 번 순회
+자료구조/알고리즘 :
+선형 탐색 (Linear Scan)
+
+'''
+
+class Solution:
+    def isAdjacentDiffAtMostTwo(self, s: str) -> bool:
+        for i in range(len(s) - 1):
+            if abs(int(s[i]) - int(s[i+1])) > 2:
+                return False
+        return True
