@@ -1,0 +1,21 @@
+'''
+1. 아이디어 :
+   - def isValid(n:int, x=int) -> bool 한 후, 조건 만족하면 참값 반환
+   - n을 문자열로 변환
+   - x가 문자열 안에 존재하는지 확인 (in 연산)
+   - return 할 때.
+   - 첫 번째 문자가 x가 아닌지 확인
+   - 두 조건을 모두 만족하면 True
+
+2. 시간복잡도 :
+   O(d)  → d = n의 자릿수 (str 변환 + in 탐색 모두 O(d))
+
+3. 자료구조/알고리즘 :
+   - String (문자열 변환 및 슬라이싱)
+   - Linear Search 
+'''
+
+
+def isValid(n: int, x: int) -> bool:
+    s = str(n)
+    return str(x) in s and s[0] != str(x)
