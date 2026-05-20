@@ -2,17 +2,20 @@
 '''
 1. 아이디어 :
 2. 시간복잡도 :
-    O(n)
+    O(n^2)
 3. 자료구조/알고리즘 :
 '''
 
 class Solution:
-    def isAdjacentDiffAtMostTwo(self, s: str) -> bool:
-        lst = []
-        for i in range(len(s) - 1):
-            lst.append(abs(int(s[i]) - int(s[i+1])))
+    def firstStableIndex(self, nums: list[int], k: int) -> int:
+        min_max_diff = []
+        for i in range(len(nums)):
+            min_max_diff.append(max(nums[:i+1]) - min(nums[i:]))
+        
+        print(min_max_diff)
 
-        # if len(lst) == 1:
-        #     return True if lst[0] <= 2 else False
+        for i in range(len(nums)):
+            if min_max_diff[i] <= k:
+                return i
 
-        return True if max(lst) <= 2 else False 
+        return -1
