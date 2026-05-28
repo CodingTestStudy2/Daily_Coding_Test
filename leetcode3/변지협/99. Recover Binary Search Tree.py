@@ -1,3 +1,14 @@
+'''
+1. 아이디어 :
+    bst는 중위순회 시 오름차순이므로, 이걸 구하고 sorted 해서 다른 두개를 구함.
+    다시 전체를 순회하면서 다른 두개를 바꿔준다.
+2. 시간복잡도 :
+    O(n)
+3. 자료구조/알고리즘 :
+    중위순회
+'''
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
