@@ -27,7 +27,7 @@ jobs:
             if gh pr merge $pr --merge; then
               echo "PR #$pr merged successfully."
               echo "Waiting for 1 minute before processing the next PR..."
-              sleep 60 # 1분 대기
+              sleep 5 # 5초 대기
             else
               echo "Failed to merge PR #$pr. Closing the PR."
               gh pr close $pr --comment "Automatically closing stale PR #$pr due to merge failure."
