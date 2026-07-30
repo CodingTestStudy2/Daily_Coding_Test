@@ -3,11 +3,15 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/1easy" isTestSource="false" packagePrefix="Leetcode" />
+      <sourceFolder url="file://$MODULE_DIR$/1easy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/2medium" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/3hard" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="3hard" />
+    <orderEntry type="module" module-name="1easy" />
+    <orderEntry type="module" module-name="2medium1" />
+    <orderEntry type="module" module-name="3hard1" />
   </component>
 </module>
