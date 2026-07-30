@@ -9,7 +9,7 @@ class Solution:
                 temp_sum.append(int(i))
                 temp_new_sum+=i
         if(temp_sum):
-            answer = sum(temp_sum)*int(temp_new_sum)
+            answer = sum(temp_sum) * int(temp_new_sum)
         else:
             answer = 0
         return answer

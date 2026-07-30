@@ -7,4 +7,4 @@ class Solution:
         while(right_p<=len(nums)):
             answer.append()
             if right_p-left_p<k:
-                right_p+=1
+                right_p+ = 1
