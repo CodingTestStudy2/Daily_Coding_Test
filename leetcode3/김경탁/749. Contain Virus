@@ -1,0 +1,99 @@
+from typing import List
+
+
+class Solution:
+    def containVirus(self, isInfected: List[List[int]]) -> int:
+        rows = len(isInfected)
+        cols = len(isInfected[0])
+
+        directions = [
+            (1, 0),
+            (-1, 0),
+            (0, 1),
+            (0, -1)
+        ]
+
+        answer = 0
+
+        while True:
+            visited = set()
+
+            regions = []
+            frontiers = []
+            walls = []
+
+           
+            for start_row in range(rows):
+                for start_col in range(cols):
+
+                    if isInfected[start_row][start_col] != 1:
+                        continue
+
+                    if (start_row, start_col) in visited:
+                        continue
+
+                    stack = [(start_row, start_col)]
+                    visited.add((start_row, start_col))
+
+                    region = []
+                    frontier = set()
+                    wall_count = 0
+
+                
+                    while stack:
+                        row, col = stack.pop()
+                        region.append((row, col))
+
+                        for dr, dc in directions:
+                            next_row = row + dr
+                            next_col = col + dc
+
+                            if not (
+                                0 <= next_row < rows
+                                and 0 <= next_col < cols
+                            ):
+                                continue
+
+                            if isInfected[next_row][next_col] == 0:
+                                frontier.add((next_row, next_col))
+                                wall_count += 1
+
+                           
+                            elif (
+                                isInfected[next_row][next_col] == 1
+                                and (next_row, next_col) not in visited
+                            ):
+                                visited.add((next_row, next_col))
+                                stack.append((next_row, next_col))
+
+                 
+                    regions.append(region)
+                    frontiers.append(frontier)
+                    walls.append(wall_count)
+
+           
+            if not regions:
+                break
+
+            
+            quarantine_index = max(
+                range(len(frontiers)),
+                key=lambda index: len(frontiers[index])
+            )
+
+            if len(frontiers[quarantine_index]) == 0:
+                break
+
+            answer += walls[quarantine_index]
+
+            for row, col in regions[quarantine_index]:
+                isInfected[row][col] = -1
+
+            for index in range(len(frontiers)):
+                if index == quarantine_index:
+                    continue
+
+                for row, col in frontiers[index]:
+                    isInfected[row][col] = 1
+
+        return answer
