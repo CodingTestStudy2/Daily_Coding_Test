@@ -10,16 +10,26 @@
 3. 자료구조/알고리즘 :
 완전탐색
 '''
-
 class Solution(object):
+    def prime(self, n):
+        lst = []
+        for i in range(1,n+1):
+            if n % i == 0:
+                lst.append(i)
+
+        return lst
 
     def gcd(self, a, b):
-        # a를 b로 나누면 그 나머지와 b의 최대공약수는 같다.
-        # 18 24
-        # 18 % 24 = 18
-        # 
+        ap = self.prime(a)
+        bp = self.prime(b)
+        # print("a,b,ap,bp:", a,b,ap,bp)
+        tmp = -1
+        for i in ap:
+            if i in bp:
+                if tmp < i:
+                    tmp = i
 
-        g = a % b
+        return tmp
                 
     def maxPairStrength(self, nums):
         """
