@@ -1,0 +1,36 @@
+name: Auto PR Title
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  set-pr-title:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set PR title
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BRANCH_NAME: ${{ github.head_ref }}
+          TZ: Asia/Seoul
+        run: |
+          START_DATE="2026-07-30"
+
+          TODAY=$(date +"%Y-%m-%d")
+
+          START_SECONDS=$(date -d "$START_DATE" +%s)
+          TODAY_SECONDS=$(date -d "$TODAY" +%s)
+
+          DIFF_DAYS=$(( (TODAY_SECONDS - START_SECONDS) / 86400 + 1 ))
+          DAY=$(printf "%02d" "$DIFF_DAYS")
+
+          TITLE="[$BRANCH_NAME] Day$DAY"
+
+          echo "PR title: $TITLE"
+
+          gh pr edit "$PR_NUMBER" --title "$TITLE"
