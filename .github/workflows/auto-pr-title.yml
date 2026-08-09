@@ -19,6 +19,7 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref }}
           REPOSITORY: ${{ github.repository }}
           TZ: Asia/Seoul
+
         run: |
           START_DATE="2026-07-30"
 
@@ -32,6 +33,7 @@ jobs:
 
           TITLE="[$BRANCH_NAME] Day$DAY"
 
+          echo "Repository: $REPOSITORY"
           echo "PR title: $TITLE"
 
           gh pr edit "$PR_NUMBER" \
