@@ -17,6 +17,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           BRANCH_NAME: ${{ github.head_ref }}
+          REPOSITORY: ${{ github.repository }}
           TZ: Asia/Seoul
         run: |
           START_DATE="2026-07-30"
@@ -33,4 +34,6 @@ jobs:
 
           echo "PR title: $TITLE"
 
-          gh pr edit "$PR_NUMBER" --title "$TITLE"
+          gh pr edit "$PR_NUMBER" \
+            --repo "$REPOSITORY" \
+            --title "$TITLE"
