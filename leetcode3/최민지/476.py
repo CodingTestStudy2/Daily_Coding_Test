@@ -10,5 +10,8 @@ class Solution:
         result = int(change, 2)
 
         return result
+
+
+# Solution().findComplement(5)
     
         
