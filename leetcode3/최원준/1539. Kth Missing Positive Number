@@ -1,0 +1,23 @@
+#
+
+'''
+1. 아이디어 :
+10000만까지 count하면서 존재하지 않으면 k를 감소.
+k가 0 이면 해당 숫자가 답
+
+2. 시간복잡도 :
+    O(10000)
+
+3. 자료구조/알고리즘 :
+-
+
+'''
+
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        num_set = set(arr)
+        for i in range(1, 10000):
+            if i not in num_set:
+                k-=1
+            if k == 0:
+                return i
