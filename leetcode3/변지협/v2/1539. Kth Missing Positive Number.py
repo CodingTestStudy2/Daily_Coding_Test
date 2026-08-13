@@ -1,3 +1,11 @@
+'''
+1. 아이디어 :
+arr 뒤집고 pop()할 때는 ans에 안넣음.
+
+2. 시간복잡도 :
+
+3. 자료구조/알고리즘 :
+'''
 class Solution:
     def findKthPositive(self, arr: List[int], k: int) -> int:
         i = 1
