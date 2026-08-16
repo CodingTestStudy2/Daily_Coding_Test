@@ -1,32 +1,24 @@
-# 풀이 실패
 class Solution:
-    def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
-        memo = {}
-        MOD = 10**9 + 7
 
-        def dp(r, c, moves):
-            # 밖으로 탈출한 경우
-            if r < 0 or r >= m or c < 0 or c >= n:
-                return 1
+    # 풍선 k가 가장 마지막으로 터진다면 양 옆의 풍선은 무조건 l, r임
+    # 그러므로 k 기준으로 좌측(left, k), 우측(k, right)로 나눠서 배열 작성함
 
-            # 이동 횟수 전부 사용한 경우
-            if moves == 0:
-                return 0
+    def maxCoins(self, nums: List[int]) -> int:
+        # 양 끝 경계에 1을 추가한다
+        A = [1] + nums + [1]
+        n = len(A)
+        dp = [[0] * n for _ in range(n)]
 
-            # 이미 계산된 위치거나 남은 이동 횟수라면 저장된 값으로 사용
-            if (r, c, moves) in memo:
-                return memo[(r, c, moves)]
+        # l과 r 사이의 거리 구하기 (2부터 n-1까지)
+        for length in range(2, n):
+            for l in range(n - length):
+                r = l + length
 
-            # 상, 하, 좌, 우 이동 경로 합산
-            res = (
-                dp(r + 1, c, moves - 1)
-                + dp(r - 1, c, moves - 1)
-                + dp(r, c + 1, moves - 1)
-                + dp(r, c - 1, moves - 1)
-            ) % MOD
+                # l과 r 사이의 k 중 최댓값 찾아서 갱신함
+                # k 마지막에 터뜨릴 때 얻는 코인 + 좌측 코인 + 우측 코인
+                dp[l][r] = max(
+                    A[l] * A[k] * A[r] + dp[l][k] + dp[k][r]
+                    for k in range(l + 1, r)
+                )
 
-            # 결과 기록 후 반환
-            memo[(r, c, moves)] = res
-            return res
-
-        return dp(startRow, startColumn, maxMove)
+        return dp[0][n - 1]
