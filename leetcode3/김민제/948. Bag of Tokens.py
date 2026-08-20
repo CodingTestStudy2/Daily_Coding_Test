@@ -3,7 +3,7 @@ from typing import List
 
 class Solution:
     def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
-        tokens.sort()  #Olog(n)
+        tokens.sort()  #nlog(n)
         left = 0 #가장 작은 토큰
         right = len(tokens)-1 #가장 큰 토큰
         score = 0
