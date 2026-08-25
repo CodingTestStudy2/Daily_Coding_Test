@@ -9,7 +9,7 @@ var minimumPushes = function(word) {
     let left=word.length;
 
     while(left>0){
-        if(left<=8){
+        if(left<=8){ 
             cost+=(left*(click++))
             break;
         }else{
