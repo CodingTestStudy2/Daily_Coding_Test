@@ -21,7 +21,7 @@ jobs:
           TZ: Asia/Seoul
 
         run: |
-          START_DATE="2026-07-30"
+          START_DATE="2026-09-01"
 
           TODAY=$(date +"%Y-%m-%d")
 
