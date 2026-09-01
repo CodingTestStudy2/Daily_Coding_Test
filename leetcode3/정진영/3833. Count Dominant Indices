@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+var dominantIndices = function(nums) {
+    let count = 0;
+
+    for (let i = 0; i<nums.length; i++){
+        let sum = 0;
+        let avg = 0;
+        for (let j = i+1; j<nums.length; j++){
+            sum += nums[j];
+        }
+        avg = sum / (nums.length - i - 1);
+        if (avg != 0 && nums[i] > avg){
+            count++;
+        }
+    }
+    return count;
+};
