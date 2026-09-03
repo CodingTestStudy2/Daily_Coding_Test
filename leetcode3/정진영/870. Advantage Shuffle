@@ -1,0 +1,39 @@
+/**
+ * @param {number[]} nums1
+ * @param {number[]} nums2
+ * @return {number[]}
+ */
+var advantageCount = function(nums1, nums2) {
+    // nums1 오름차순 정렬
+    nums1.sort((a, b) => a - b);
+
+    // nums2는 원래 위치와 함께 내림차순 정렬
+    const sortedNums2 = [];
+
+    for (let i = 0; i < nums2.length; i++) {
+        sortedNums2.push([nums2[i], i]);
+    }
+
+    sortedNums2.sort((a, b) => b[0] - a[0]);
+
+    const answer = new Array(nums1.length);
+    let left = 0;
+    let right = nums1.length - 1;
+
+    for (let i = 0; i < sortedNums2.length; i++) {
+        const value = sortedNums2[i][0];
+        const originalIndex = sortedNums2[i][1];
+
+        if (nums1[right] > value) {
+            // 이길 수 있으면 가장 큰 숫자로 이긴다
+            answer[originalIndex] = nums1[right];
+            right--;
+        } else {
+            // 가장 큰 숫자로도 못 이기면 가장 작은 숫자를 버린다
+            answer[originalIndex] = nums1[left];
+            left++;
+        }
+    }
+
+    return answer;
+};
