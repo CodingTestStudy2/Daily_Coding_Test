@@ -1,0 +1,22 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxDigitRange = function(nums) {
+    let sum = 0;
+    let maxRange = -1;
+    for (let i = 0; i<nums.length; i++){
+        nums[i]; // 5724
+        const arr = String(nums[i]).split("").sort((a,b) => a-b); // 2 4 5 7
+        
+        const range = arr[arr.length - 1] - arr[0];
+
+        if (range > maxRange){
+            maxRange = range;
+            sum = nums[i];
+        } else if (range == maxRange){
+            sum += nums[i];
+        }
+    }
+    return sum;
+};
