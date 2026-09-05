@@ -1,0 +1,52 @@
+/**
+ * @param {number[][]} richer
+ * @param {number[]} quiet
+ * @return {number[]}
+ */
+
+// 인접리스트 + dfs + 메모이제이션 
+var loudAndRich = function(richer, quiet) {
+    const n = quiet.length;
+
+    // graph[x]: x보다 직접적으로 부자인 사람들
+    const graph = Array.from({ length: n }, () => []);
+
+    for (let i = 0; i < richer.length; i++) {
+        const rich = richer[i][0];
+        const poor = richer[i][1];
+
+        graph[poor].push(rich);
+    }
+
+    // -1이면 아직 정답을 구하지 않았다는 뜻
+    const answer = new Array(n).fill(-1);
+
+    function dfs(person) {
+        // 이미 계산한 사람이라면 다시 계산하지 않음
+        if (answer[person] !== -1) {
+            return answer[person];
+        }
+
+        // 처음에는 자기 자신이 가장 조용하다고 가정
+        answer[person] = person;
+
+        // 현재 사람보다 부자인 사람들을 탐색
+        for (const richPerson of graph[person]) {
+            const candidate = dfs(richPerson);
+
+            // candidate가 현재 정답보다 더 조용한 경우
+            if (quiet[candidate] < quiet[answer[person]]) {
+                answer[person] = candidate;
+            }
+        }
+
+        return answer[person];
+    }
+
+    // 모든 사람의 정답 구하기
+    for (let i = 0; i < n; i++) {
+        dfs(i);
+    }
+
+    return answer;
+};
