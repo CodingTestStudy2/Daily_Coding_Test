@@ -1,0 +1,75 @@
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var sumOfDistancesInTree = function(n, edges) {
+    /**
+    dfs n 번 실행하면 O(n^2)이라서 시간초과..
+    => dp 결합해서 사용해야함...
+    1. 아이디어: 트리에서 0번 노드를 루트, DFS 2번 실행
+        첫번째 dfs: 각 노드의 서브트리 크기 count, 0번의 전체 거리 합 answer[0]
+        두번째 dfs: 부모 노드의 거리 합 사용하여 자식 노드 거리합 구하기
+        
+        answer[child] = answer[parent] - count[child] + (n-count[child])
+
+        부모에서 자식으로 기준을 옮기면, 자식의 서브트리 노드들은 1씩 가까워지고
+        나머지 노드들은 1씩 멀어짐
+
+    2. 시간복잡도: O(V+E) 트리의 간선 수는 E = V - 1 이므로 O(n)
+    3. 자료구조: 인접리스트, dfs, 트리 DP
+    **/
+
+    const graph = Array.from({ length: n }, () => []);
+    const count = new Array(n).fill(1); // 자기 자신도 포함하므로 1로 시작
+
+    const answer = new Array(n).fill(0); // i번 노드에서 다른 노드까지의 거리합
+
+    for (let i =0; i<edges.length; i++){
+        const a = edges[i][0];
+        const b = edges[i][1];
+
+        graph[a].push(b);
+        graph[b].push(a);
+    }
+
+    /*
+    1. 각 노드의 서브트리 크기 count 를 구한다
+    2. 0번 노드에서 모든 노드까지의 거리 합 answer[0]을 구한다
+    */
+    function dfs1(node, parent, depth){
+        answer[0] += depth;
+
+        for (let i = 0; i<graph[node].length; i++){
+            const child = graph[node][i];
+
+            if (child == parent){
+                continue;
+            }
+
+            dfs1(child, node, depth + 1);
+
+            count[node] += count[child];
+        }
+    }
+
+    /*
+    부모 노드 거리 합을 이용해ㅓ서 자식 노드의 거리 합을 구한다.
+    */
+    function dfs2(node, parent){
+        for (let i = 0; i<graph[node].length; i++){
+            const child = graph[node][i];
+
+            if (child == parent){
+                continue;
+            }
+            answer[child] = answer[node] - count[child] + (n - count[child]);
+
+            dfs2(child, node);
+        }
+    }
+    dfs1(0, -1, 0);
+    dfs2(0, -1);
+
+    return answer;
+};
