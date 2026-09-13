@@ -1,0 +1,20 @@
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var numOfWays = function(n) {
+    const MOD = 1e9 + 7;
+
+    let aba = 6;
+    let abc = 6;
+
+    for (let i = 1; i < n; i++) {
+        const nextAba = (aba * 3 + abc * 2) % MOD;
+        const nextAbc = (aba * 2 + abc * 2) % MOD;
+
+        aba = nextAba;
+        abc = nextAbc;
+    }
+
+    return (aba + abc) % MOD;
+};
