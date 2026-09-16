@@ -1,0 +1,21 @@
+/**
+ * @param {string[]} operations
+ * @return {number}
+ */
+var calPoints = function(operations) {
+    // stack 사용
+    // C: pop, D: 2배 push, +: 이전 두 점수 더하고 push
+    const stack = [];
+    for (let i = 0; i < operations.length; i++){
+        if (operations[i] == 'C'){
+            stack.pop();
+        } else if (operations[i] == 'D'){
+            stack.push(stack[stack.length-1]*2);
+        } else if (operations[i] == '+'){
+            stack.push(stack[stack.length-1] + stack[stack.length-2]);
+        } else {
+           stack.push(Number(operations[i]));
+        }
+    }
+    return stack.reduce((acc, cur) => acc + cur, 0);
+};
