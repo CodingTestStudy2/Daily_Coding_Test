@@ -1,0 +1,27 @@
+/**
+ * @param {number[][]} tasks
+ * @return {number}
+ */
+
+ // 시작 조건: 실제 소모량보다 까다로운 작업 먼저 처리위해 // minimum - actual 이 큰 순서대로 청렬
+ // 각 작업 시작 시 필요한 초기에너지 계산
+ // 그리디 + 정렬
+ // 시간복잡도: O(n log n)
+var minimumEffort = function(tasks) {
+    tasks.sort((a, b) => {
+        return (b[1] - b[0]) - (a[1] - a[0]);
+    });
+
+    let spent = 0;
+    let answer = 0;
+
+    for (let i = 0; i < tasks.length; i++) {
+        const actual = tasks[i][0];
+        const minimum = tasks[i][1];
+
+        answer = Math.max(answer, spent + minimum);
+        spent += actual;
+    }
+
+    return answer;
+};
