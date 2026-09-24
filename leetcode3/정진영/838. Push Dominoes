@@ -1,0 +1,17 @@
+/**
+ * @param {string} dominoes
+ * @return {string}
+ */
+var pushDominoes = function(dominoes) {
+    const arr = dominoes.split("");
+
+    let left = 0;
+
+    for (let right = 1; right < arr.length; right)++{
+        if (arr[right] !== '.'){
+            left = right;
+        }
+    }
+
+    return arr.join("");
+};

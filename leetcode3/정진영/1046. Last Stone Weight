@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} stones
+ * @return {number}
+ */
+var lastStoneWeight = function(stones) {
+    while (stones.length > 1) {
+        stones.sort((a, b) => a - b);
+
+        let i = stones.length - 1;
+
+        if (stones[i] == stones[i - 1]) {
+            stones.pop();
+            stones.pop();
+        } else {
+            stones[i - 1] = stones[i] - stones[i - 1];
+            stones.pop();
+        }
+    }
+
+    return stones.length === 1 ? stones[0] : 0;
+};
