@@ -1,0 +1,41 @@
+/**
+ * @param {number[][]} grid
+ * @return {number}
+ */
+var getMaximumGold = function(grid) {
+    let ans = 0;
+    let m = grid.length;
+    let n = grid[0].length;
+
+    function dfs(i, j) {
+        if (i < 0 || i >= m || j < 0 || j >= n || grid[i][j] === 0) {
+            return 0;
+        }
+
+        let gold = grid[i][j];
+
+        grid[i][j] = 0;
+
+        // 상하좌우 중 가장 많은 금을 얻는 경로
+        let up = dfs(i - 1, j);
+        let down = dfs(i + 1, j);
+        let left = dfs(i, j - 1);
+        let right = dfs(i, j + 1);
+
+        // 다시 원래대로 돌려놓기
+        grid[i][j] = gold;
+
+        return gold + Math.max(up, down, left, right);
+    }
+
+    // 모든 칸을 시작점으로 해보기
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (grid[i][j] !== 0) {
+                ans = Math.max(ans, dfs(i, j));
+            }
+        }
+    }
+
+    return ans;
+};
