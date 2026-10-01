@@ -1,0 +1,59 @@
+#
+
+'''
+1. 아이디어 :
+모든 선택은 상태값을 들고 있어야한다.
+재귀 백트래킹을 통해 롤백.
+
+2. 시간복잡도 :
+    O(4 ** 25)
+
+3. 자료구조/알고리즘 :
+dfs, backtracking
+
+'''
+class Solution:
+    def getMaximumGold(self, grid: list[list[int]]) -> int:
+        n = len(grid)
+        m = len(grid[0])
+        # n <= 15
+        # 비싼쪽으로X 다익스트라X 백트래킹? 4**25 압축?
+
+        dx = [0,0,1,-1]
+        dy = [1,-1,0,0]
+
+        def dfs(row, col):
+            gold = grid[row][col]
+            grid[row][col] = 0 #
+            
+            max_gold = 0
+            for i in range(4):
+                nx = row + dx[i]
+                ny = col + dy[i]
+
+                if 0<= nx <n and 0<=ny < m and grid[nx][ny] != 0:
+                    max_gold = max(max_gold, dfs(nx, ny))
+
+            grid[row][col] = gold
+
+            return gold + max_gold
+
+        ans = 0
+        for i in range(n):
+            for j in range(m):
+                ans = max(ans, dfs(i, j))
+        return ans
+
+'''
+ [1,0,7],
+ [2,0,6],
+ [3,4,5],
+ [0,3,0],
+ [9,0,20]
+
+ [ 6, 0,18]
+ [ 6, 0,18]
+ [ 6,-1,18]
+ [ 0, 3, 0]
+ [ 0, 0, 0]
+ '''
