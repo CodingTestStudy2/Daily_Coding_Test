@@ -1,0 +1,87 @@
+/**
+ * @param {number[]} nums
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var minimumScore = function(nums, edges) {
+    const n = nums.length;
+
+    const graph = Array.from({ length: n }, () => []);
+
+    for (let i = 0; i < edges.length; i++) {
+        const [a, b] = edges[i];
+        graph[a].push(b);
+        graph[b].push(a);
+    }
+
+    const xor = new Array(n).fill(0);
+    const inTime = new Array(n).fill(0);
+    const outTime = new Array(n).fill(0);
+
+    let time = 0;
+
+    function dfs(node, parent) {
+        inTime[node] = time++;
+        xor[node] = nums[node];
+
+        for (let i = 0; i < graph[node].length; i++) {
+            const next = graph[node][i];
+
+            if (next === parent) continue;
+
+            dfs(next, node);
+
+            xor[node] ^= xor[next];
+        }
+
+        outTime[node] = time;
+    }
+
+    dfs(0, -1);
+
+    // a가 b의 조상인지 확인
+    function isParent(a, b) {
+        return inTime[a] <= inTime[b] &&
+               outTime[b] <= outTime[a];
+    }
+
+    const total = xor[0];
+    let ans = Infinity;
+
+    // root를 제외한 각 노드는
+    // 부모와 연결된 간선을 하나씩 가지고 있음
+    for (let i = 1; i < n; i++) {
+        for (let j = i + 1; j < n; j++) {
+
+            let a;
+            let b;
+            let c;
+
+            if (isParent(i, j)) {
+                // j가 i 서브트리 안에 있음
+                a = xor[j];
+                b = xor[i] ^ xor[j];
+                c = total ^ xor[i];
+
+            } else if (isParent(j, i)) {
+                // i가 j 서브트리 안에 있음
+                a = xor[i];
+                b = xor[j] ^ xor[i];
+                c = total ^ xor[j];
+
+            } else {
+                // 서로 다른 서브트리
+                a = xor[i];
+                b = xor[j];
+                c = total ^ xor[i] ^ xor[j];
+            }
+
+            const max = Math.max(a, b, c);
+            const min = Math.min(a, b, c);
+
+            ans = Math.min(ans, max - min);
+        }
+    }
+
+    return ans;
+};
