@@ -1,0 +1,17 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+
+// 중복된 요소를 발견하면 
+
+var removeDuplicates = function(nums) {
+    for (let i=0; i<nums.length;) {
+        if (nums[i] == nums[i+1]) {
+            nums.splice(i,1)
+        } else {
+            i++
+        }
+    }
+    return nums.length;
+};
