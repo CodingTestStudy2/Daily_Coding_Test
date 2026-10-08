@@ -1,0 +1,39 @@
+/**
+ * @param {string[]} strs
+ * @return {number}
+ */
+var findLUSlength = function(strs) {
+    let ans = -1;
+
+    function isSubsequence(a, b) {
+        let i = 0;
+
+        for (let j = 0; j < b.length; j++) {
+            if (a[i] === b[j]) {
+                i++;
+            }
+        }
+
+        return i === a.length;
+    }
+
+    for (let i = 0; i < strs.length; i++) {
+        let uncommon = true;
+
+        for (let j = 0; j < strs.length; j++) {
+            if (i === j) continue;
+
+            // strs[i]가 다른 문자열의 부분수열이면 탈락
+            if (isSubsequence(strs[i], strs[j])) {
+                uncommon = false;
+                break;
+            }
+        }
+
+        if (uncommon) {
+            ans = Math.max(ans, strs[i].length);
+        }
+    }
+
+    return ans;
+};
