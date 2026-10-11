@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} rolls
+ * @param {number} k
+ * @return {number}
+ */
+var shortestSequence = function(rolls, k) {
+    let set = new Set();
+    let count = 0;
+
+    for (let i = 0; i < rolls.length; i++) {
+        set.add(rolls[i]);
+
+        // 1 ~ k가 전부 한 번씩 모였으면
+        if (set.size === k) {
+            count++;
+            set.clear();
+        }
+    }
+
+    return count + 1;
+};
