@@ -12,9 +12,16 @@ var carPooling = function(trips, capacity) {
         let from = trips[i][1];
         let to = trips[i][2];
 
-        arr[from] += np;
-        arr[to] -= np;
+        arr[from] += nP;
+        arr[to] -= nP;
     }
     
-    if (capacity)
+    let count = 0;
+    for (let j = 0; j < arr.length; j++){
+        count += arr[j];
+        if (count > capacity) {
+            return false;
+        } 
+    }
+    return true;
 };
