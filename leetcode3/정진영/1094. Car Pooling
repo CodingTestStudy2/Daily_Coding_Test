@@ -1,0 +1,27 @@
+/**
+ * @param {number[][]} trips
+ * @param {number} capacity
+ * @return {boolean}
+ */
+var carPooling = function(trips, capacity) {
+    // trips[i] = [numPassengers, from, to]
+    // nP 승객이 from에서 타서 to에서 내림
+    let arr = new Array(1000).fill(0);
+    for (let i = 0; i<trips.length; i++){
+        let nP = trips[i][0];
+        let from = trips[i][1];
+        let to = trips[i][2];
+
+        arr[from] += nP;
+        arr[to] -= nP;
+    }
+    
+    let count = 0;
+    for (let j = 0; j < arr.length; j++){
+        count += arr[j];
+        if (count > capacity) {
+            return false;
+        } 
+    }
+    return true;
+};
