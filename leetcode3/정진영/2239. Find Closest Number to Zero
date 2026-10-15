@@ -1,0 +1,19 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findClosestNumber = function(nums) {
+    let abs = [];
+
+    for (let i = 0; i<nums.length; i++){    // n
+        abs.push(Math.abs(nums[i]));   
+    }
+
+    abs.sort((a,b)=>a-b);   // n log n
+    
+    if (nums.includes(abs[0])){ // n
+        return abs[0];
+    } else {
+        return -abs[0];
+    }
+};
