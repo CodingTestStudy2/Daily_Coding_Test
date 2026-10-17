@@ -1,0 +1,61 @@
+/**
+ * @param {string[][]} watchedVideos
+ * @param {number[][]} friends
+ * @param {number} id
+ * @param {number} level
+ * @return {string[]}
+ */
+var watchedVideosByFriends = function(watchedVideos, friends, id, level) {
+    // id 에서 BFS 시작
+    // level 만큼 친구 탐색해서 친구 찾기
+    // 친구들이 시청한 영상 횟수 map에 저장 후 오름차순 정렬
+
+    let queue = [id];
+    let visited = new Set([id]);
+
+    // 1. BFS로 level 단계까지 친구 탐색
+    for (let i = 0; i < level; i++) {
+        let next = [];
+
+        for (let j = 0; j < queue.length; j++) {
+            let person = queue[j];
+
+            for (let k = 0; k < friends[person].length; k++) {
+                let friend = friends[person][k];
+
+                if (!visited.has(friend)) {
+                    visited.add(friend);
+                    next.push(friend);
+                }
+            }
+        }
+
+        queue = next;
+    }
+
+    // 2. 해당 친구들이 본 영상 개수 세기
+    let count = new Map();
+
+    for (let i = 0; i < queue.length; i++) {
+        let person = queue[i];
+
+        for (let j = 0; j < watchedVideos[person].length; j++) {
+            let video = watchedVideos[person][j];
+
+            count.set(video, (count.get(video) || 0) + 1);
+        }
+    }
+
+    // 3. 등장 횟수 → 알파벳순 정렬
+    let ans = [...count.keys()];
+
+    ans.sort((a, b) => {
+        if (count.get(a) !== count.get(b)) {
+            return count.get(a) - count.get(b);
+        }
+
+        return a.localeCompare(b);
+    });
+
+    return ans;
+};
