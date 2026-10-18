@@ -1,0 +1,29 @@
+/**
+ * @param {number[]} heights
+ * @return {number[]}
+ */
+var canSeePersonsCount = function(heights) {
+    // 볼 수 있는 조건
+    // - 바로 오른쪽
+    // - i j 사이 더 작은 사람
+    // 시간 복잡도 O(n^2) => TLE
+
+    let see = [];
+
+    for (let i = 0; i < heights.length; i++){
+        let count = 0;
+        let maxHeight = 0;
+
+        for (let j = i+1; j<heights.length; j++){
+            if (Math.min(heights[i], heights[j]) > maxHeight){
+                count++;
+            }
+
+            maxHeight = Math.max(maxHeight, heights[j]);
+        }
+
+        see.push(count);
+    }
+
+    return see;
+};
