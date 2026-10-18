@@ -27,3 +27,33 @@ var canSeePersonsCount = function(heights) {
 
     return see;
 };
+
+
+풀이..
+/**
+ * @param {number[]} heights
+ * @return {number[]}
+ */
+var canSeePersonsCount = function(heights) {
+    let see = new Array(heights.length).fill(0);
+    let stack = [];
+
+    for (let i = 0; i < heights.length; i++) {
+
+        while (
+            stack.length > 0 &&
+            heights[stack[stack.length - 1]] < heights[i]
+        ) {
+            let person = stack.pop();
+            see[person]++;
+        }
+
+        if (stack.length > 0) {
+            see[stack[stack.length - 1]]++;
+        }
+
+        stack.push(i);
+    }
+
+    return see;
+};
