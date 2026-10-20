@@ -1,0 +1,30 @@
+/**
+ * @param {number[]} arr
+ * @return {number}
+ */
+var mctFromLeafValues = function(arr) {
+    const n = arr.length;
+
+    let dp = Array.from(
+        { length: n },
+        () => Array(n).fill(0)
+    );
+
+    for (let i = n - 1; i >= 0; i--) {
+        for (let j = i + 1; j < n; j++) {
+            dp[i][j] = Infinity;
+
+            for (let k = i; k < j; k++) {
+                let leftMax = Math.max(...arr.slice(i, k + 1));
+                let rightMax = Math.max(...arr.slice(k + 1, j + 1));
+
+                let sum = dp[i][k] + dp[k + 1][j]
+                        + leftMax * rightMax;
+
+                dp[i][j] = Math.min(dp[i][j], sum);
+            }
+        }
+    }
+
+    return dp[0][n - 1];
+};
