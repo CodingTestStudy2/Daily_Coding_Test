@@ -1,0 +1,28 @@
+/**
+ * @param {number} n
+ * @return {boolean}
+ */
+var threeFibonacciSum = function(n) {
+    // 피보나치수열 -> dp
+    // dp[i] = dp[i-1] + dp[i-2]
+    
+    const dp = [];
+
+    dp[0] = 0;
+    dp[1] = 1;
+
+    let i = 2;
+    let sum = 0;
+
+    while (sum <= n) {
+        dp[i] = dp[i-1] + dp[i-2];
+        sum = dp[i] + dp[i-1] + dp[i-2];
+        
+        if (sum == n){
+            return true;
+        }
+        i++;
+    }
+    
+    return false;
+};
