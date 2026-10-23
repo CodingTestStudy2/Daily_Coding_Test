@@ -1,0 +1,27 @@
+/**
+ * @param {number[]} prices
+ * @return {number}
+ */
+var maxProfit = function(prices) {
+    /*
+    1. 아이디어
+    - prices[0]을 최소매수값으로 설정
+    - for 문 돌면서 prices[i] - 최소매수값 을 profit 최대값으로 갱신
+    - prices[i] 이랑 비교해가며 최소매수값 갱신
+    2. 시간복잡도
+    - O(n)
+    3. 자료구조
+    - 최소값 : minPrice
+    - 이익 : profit
+    */
+
+    let profit = 0;
+    let minPrice = prices[0];
+
+    for (let i = 1; i < prices.length; i++){
+       profit = Math.max(profit, prices[i] - minPrice);
+       minPrice = Math.min(minPrice, prices[i]);
+    }
+
+    return profit;
+};
