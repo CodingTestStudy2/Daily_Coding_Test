@@ -1,0 +1,54 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var maxProductPair = function(nums, target) {
+    /*
+    1. 아이디어
+    - 기본 ans : [-1, -1]
+    - i, j 이중 for 문을 돌기.
+    - nums[i] + nums[j] == target, nums[i] > nums[j] 조건을 만족한다면?
+    - 스택에 조건 만족하는 배열 push
+    - 스택을 for 문으로 돌면서
+    - 최대값 갱신, 최대값보다 현재 스택 곱이 크다면 ans 에 해당 스택값 저장
+    2. 시간복잡도
+    - O(n^2)
+    3. 자료구조
+    - stack = []
+    - ans = []
+    - 최대곱 = maxMul
+     */
+
+    let stack = [];
+    let maxMul = -Infinity;
+    let ans = [-1,-1];
+
+
+    for (let i = 0; i < nums.length; i++){
+        for (let j = i+1; j < nums.length; j++){
+            if (nums[i] + nums[j] == target && nums[i] > nums[j]){
+                stack.push([i,j]);
+            }
+        }
+    }
+
+    for (let i = 0; i < nums.length; i++){
+        for (let j = i+1; j < nums.length; j++){
+            if (nums[i] + nums[j] == target && nums[j] > nums[i]){
+                stack.push([j,i]);
+            } 
+        }
+    }
+
+    for (let k = 0; k < stack.length; k++){
+        let mul = nums[stack[k][0]] * nums[stack[k][1]];
+
+        if (mul > maxMul){
+            maxMul = mul;
+            ans = stack[k];
+        }
+    }
+
+    return ans;
+};
