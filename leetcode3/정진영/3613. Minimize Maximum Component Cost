@@ -1,0 +1,36 @@
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @param {number} k
+ * @return {number}
+ */
+var minCost = function(n, edges, k) {
+    /*
+    edges[i] = [ui, vi, wi]
+    간선 시작노드, 간선 끝 노드, 해당 간선 비용
+    제거 후 연결 요소 개수 k일 때의 cost 최소
+    - 그리디
+    - wi 기준으로 정렬
+    - 연결 요소 : n-1
+    - 다음 egdes와 연결이면 연결 요소-1 , 연결 요소 == k면 반복 종료
+    - 그 때의 가중치 반환
+
+    - components : 연결요소
+    - cost : 간선비용
+    - 
+     */
+
+    edges.sort((a, b) => a[2] - b[2]);
+
+    let components = n;
+    let cost = 0;
+    let i = 0;
+
+    while (components > k){
+        if (edges[i][0]==edges[i+1][0] || )
+        
+        components --;
+        
+        i++;
+    }
+};
