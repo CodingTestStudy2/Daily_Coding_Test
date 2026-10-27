@@ -1,0 +1,33 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var minRotations = function(s) {
+    /*
+    1 2 3 4 5 6 7 8 9 => 8회
+    1 0 9 => 2회 (10-2)
+    - 회전 방법 2개
+    - 포인터 curr = 0
+    - for문 돌면서 현재 숫자 - 다음 숫자 계산(최소값비교)
+    - next 로 포인터 이동
+
+    - curr : 현재 포인터
+    - sum : 전체 횟수
+    - lotate : 회전 횟수
+     */
+
+    let sum = 0;
+    let curr = 0;
+
+    for (let i = 0; i < s.length; i++) {
+        let next = Number(s[i]);
+
+        let lotate = Math.abs(curr - next);
+        let minLotate = Math.min(lotate, 10-lotate);
+        sum += minLotate;
+
+        curr = next;
+    }
+
+    return sum;
+};
