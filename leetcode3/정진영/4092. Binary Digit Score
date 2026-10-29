@@ -1,0 +1,35 @@
+/**
+ * @param {number} a
+ * @param {number} b
+ * @return {number}
+ */
+var calculateScore = function(a, b) {
+    /*
+    - a, b toString 사용해서 이진수 변환
+    - 1의 개수 : s1, s2
+     */
+
+    let score = 0;
+    let s1 = 0;
+    let s2 = 0;
+
+    for (let i = 0; i < a.toString(2).length; i++){
+        if (a.toString(2)[i] == 1){
+            s1++;
+        } 
+    }
+
+    for (let i = 0; i < b.toString(2).length; i++){
+        if (b.toString(2)[i] == 1){
+            s2++;
+        }
+    }
+
+    if (s1 >= s2){
+        score = s1 * s2;
+    } else if (s1 < s2){
+        score = Math.floor(s2 / s1);
+    }
+
+    return score;
+};

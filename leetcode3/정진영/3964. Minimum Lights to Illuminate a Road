@@ -1,0 +1,43 @@
+/**
+ * @param {number[]} lights
+ * @return {number}
+ */
+var minLights = function(lights) {
+  /*
+    lights[3] = 2
+    max(0,1) ~ min(4,5)  1 부터 4까지 => 0에 설치
+    lights[i] = 0
+    max(0,0) min(3,0) 
+
+    - 작동하지 않는 전구 위치를 찾아야 함
+    - 다 0인 배열 chk
+    - for문 돌면서 if (lights[i] == v)이면 max(0,i-v)~min(n-1,i+v)까지 체크
+   */
+
+    let n = lights.length
+    let chk = Array(n).fill(0);
+    let cnt = 0;
+
+    for (let i = 0; i < n; i++){
+        if (lights[i] != 0){
+            let v = lights[i];
+            for (let k = Math.max(0, i-v); k <= Math.min(n-1, i+v); k++){
+                chk[k] = 1;
+            }
+        }
+    }
+    
+    for (let i = 0; i < n; i++){
+        if (chk[i] == 0){
+            let j = Math.min(n-1, i+1); 
+            
+            cnt++;
+
+            for (let k = Math.max(0, j-1); k <= Math.min(n-1, j+1); k++){
+                chk[k] = 1;
+            }
+        }
+    }
+
+    return cnt;
+};
