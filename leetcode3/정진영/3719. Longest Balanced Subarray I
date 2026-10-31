@@ -1,0 +1,41 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var longestBalanced = function(nums) {
+    /*
+    1. 아이디어
+    - 이중 for문으로 모든 연속 부분 배열 탐색
+    - includes 사용해서 중복되지 않은 짝수, 홀수 배열에 각각 push
+    - 짝수/홀수 개수가 같으면 현재 부분 배열 길이로 최댓값 갱신
+
+    2. 시간복잡도
+    - O(n^3)
+
+    3. 자료구조
+    - maxLen : 부분 배열 길이 최댓값
+    - evenArr : 서로 다른 짝수 저장
+    - oddArr : 서로 다른 홀수 저장
+    */
+
+    let maxLen = 0;
+
+    for (let i = 0; i < nums.length; i++) {
+        let evenArr = [];
+        let oddArr = [];
+
+        for (let j = i; j < nums.length; j++) {
+            if ((nums[j] % 2 == 0) && !evenArr.includes(nums[j])) {
+                evenArr.push(nums[j]);
+            } else if ((nums[j] % 2 != 0) && !oddArr.includes(nums[j])) {
+                oddArr.push(nums[j]);
+            }
+
+            if (evenArr.length == oddArr.length) {
+                maxLen = Math.max(maxLen, j - i + 1);
+            }
+        }
+    }
+
+    return maxLen;
+};
