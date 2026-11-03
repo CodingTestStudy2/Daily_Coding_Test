@@ -1,0 +1,42 @@
+[문제내용]
+Example 1:
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+Explanation:
+
+There is no string in strs that can be rearranged to form "bat".
+The strings "nat" and "tan" are anagrams as they can be rearranged to form each other.
+The strings "ate", "eat", and "tea" are anagrams as they can be rearranged to form each other.
+Example 2:
+
+Input: strs = [""]
+
+Output: [[""]]
+
+Example 3:
+
+Input: strs = ["a"]
+
+Output: [["a"]]
+
+
+[작성한 코드답안]
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> answer = new HashMap<>();
+        for(String str : strs) {
+            // 문자 나열
+            char[] c = str.toCharArray();
+            Arrays.sort(c);     // 나열한 문자 정렬 
+            String s = String.valueOf(c);       
+
+            if(!answer.containsKey(s))
+                answer.put(s, new ArrayList<>());
+            answer.get(s).add(str);
+        }
+        return new ArrayList<>(answer.values());
+    }
+}
