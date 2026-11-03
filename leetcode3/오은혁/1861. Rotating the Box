@@ -1,0 +1,11 @@
+class Solution:
+    def rotateTheBox(self, grid: list[list[str]]) -> list[list[str]]:
+
+
+        for y in range(len(grid))
+        board=[[] for _ in range(len(grid[0]))]
+        for y in grid:
+            for i in range(len(y)):
+                board[i].append(y[i])
+        
+        
