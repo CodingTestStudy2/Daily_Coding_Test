@@ -1,0 +1,28 @@
+class Solution:
+    def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        m = len(grid)
+        n = len(grid[0])
+
+        minLen = min(m, n)
+
+        for i in range(minLen //2):
+            for j in range(k): # k만큼 돌기
+                tmp = grid[i][i]
+
+                for k in range(i, n-1):   # <-
+                    grid[i][k] = grid[i][k+1]   
+                for k in range(i, m-1):  # ^
+                    grid[k][n-1] = grid[k+1][n-1]
+                for k in range(n-1, i, -1): # -> 
+                    grid[m-1][k] = grid[m-1][k-1]
+                for k in range(m-1, i, -1):
+                    grid[k][i] = grid[k-1][i]
+
+                grid[i+1][i] = tmp
+
+        return grid
+
+
+/**
+수정해야함
+**/
