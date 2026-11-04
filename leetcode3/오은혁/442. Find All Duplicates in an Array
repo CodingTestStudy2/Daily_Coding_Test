@@ -1,0 +1,33 @@
+class Solution:
+    def c(self,nums,t):
+        
+        if  isinstance(nums[t],int):
+            temp=nums[t]
+            nums[t]='1'
+            self.c(nums,temp-1)
+        elif nums[t]=='.':
+            nums[t]='1'
+        else:
+            nums[t]=str(int(nums[t])+1)
+
+    def findDuplicates(self, nums: list[int]) -> list[int]:
+        ans=[]
+        for i in range(len(nums)):
+            if isinstance(nums[i],int):
+                if nums[i]==i+1:
+                    nums[i]='1'
+                else:
+                    temp=nums[i]
+                    nums[i]='.'
+                    self.c(nums,temp-1)
+                    
+                
+            else:continue
+        
+        for i in range(len(nums)):
+            if nums[i]=='2':
+                ans.append(i+1)
+        return ans
+
+
+        
