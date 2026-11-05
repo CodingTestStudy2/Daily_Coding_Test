@@ -1,0 +1,46 @@
+from collections import deque
+class Solution:
+    def rotate(self,grid,x,y,xn,yn,k):
+        dq=deque([])
+        cur_x=x
+        cur_y=y
+        while cur_x<x+xn:
+            dq.append((cur_y,cur_x))
+            cur_x+=1
+        cur_x-=1
+        cur_y+=1
+        while cur_y<y+yn:
+            dq.append((cur_y,cur_x))
+            cur_y+=1
+        cur_y-=1
+        cur_x-=1
+        while cur_x>=x:
+            dq.append((cur_y,cur_x))
+            cur_x-=1
+        cur_x+=1
+        cur_y-=1
+        while cur_y>y:
+            dq.append((cur_y,cur_x))
+            cur_y-=1
+        return dq
+        temp=yn*xn-(yn-2)*(xn-2)
+        k=k%temp
+
+        if k<yn:
+            sx=x
+            sy=y+k
+        elif k>=yn and k<yn+xn-1:
+            sx=k-yn+1
+            sy=yn-1
+
+        elif k<2*yn+xn-2:
+            sx=xn-1
+            sy=k-yn-xn
+
+        else:
+            sx=
+            sy=y
+
+
+    def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        return self.rotate(grid,0,0,len(grid[0]),len(grid),k)

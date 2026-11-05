@@ -1,0 +1,16 @@
+class Solution:
+    def findDuplicates(self, nums: list[int]) -> list[int]:
+        ans = []
+        numbers = {}
+
+        for i in nums:
+            if i in numbers:
+                numbers[i] += 1
+            else:
+                numbers[i] = 1
+
+        for i in numbers:
+            if numbers[i] ==2:
+                ans.append(i)
+
+        return ans
