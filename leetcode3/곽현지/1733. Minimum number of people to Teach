@@ -1,0 +1,16 @@
+class Solution {
+    public int minimumTeachings(int n, int[][] languages, int[][] friendships) {
+        int m = languages.length; 
+
+        boolean[][] knows = new boolean[m + 1][n + 1];
+
+        for (int i = 0; i < m; i++) {
+            for (int lang : languages[i]) {
+                knows[i + 1][lang] = true;
+            }
+        }
+
+        // 대화할 수 없는 친구 찾기 
+        boolean[] needTeach = new boolean[m + 1];
+    }
+}
