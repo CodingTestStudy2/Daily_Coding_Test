@@ -1,0 +1,17 @@
+class Solution:
+    def twoEditWords(self, queries: list[str], dictionary: list[str]) -> list[str]:
+        result = []
+
+        for word in queries:
+            for j in dictionary:
+
+                cnt = 0
+                for k in range(len(word)):
+                    if word[k] != j[k]:
+                        cnt +=1
+
+                
+                if cnt <= 2:
+                    result.append(word)
+                    break
+        return result
