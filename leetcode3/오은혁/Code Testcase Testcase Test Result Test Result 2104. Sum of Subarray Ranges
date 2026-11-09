@@ -1,0 +1,32 @@
+class Solution:
+    def subArrayRanges(self, nums: List[int]) -> int:
+        n = len(nums)
+        answer = 0
+
+        left = [-1] * n
+        right = [n] * n
+        stack = []
+        for i in range(n):
+            while stack and nums[stack[-1]] < nums[i]:
+                j = stack.pop()
+                right[j] = i
+            if stack:
+                left[i] = stack[-1]
+            stack.append(i)
+        for i in range(n):
+            answer += nums[i] * (i - left[i]) * (right[i] - i)
+
+        left = [-1] * n
+        right = [n] * n
+        stack = []
+        for i in range(n):
+            while stack and nums[stack[-1]] > nums[i]:
+                j = stack.pop()
+                right[j] = i
+            if stack:
+                left[i] = stack[-1]
+            stack.append(i)
+        for i in range(n):
+            answer -= nums[i] * (i - left[i]) * (right[i] - i)
+
+        return answer
