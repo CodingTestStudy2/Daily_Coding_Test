@@ -1,0 +1,21 @@
+class Solution:
+    def maxJump(self, stones: list[int]) -> int:
+        n = len(stones)
+        result = 0
+
+        front = stones[0::2] # 갈 때
+        back = stones[1::2] # 올 때
+
+        if front[-1] != stones[-1]:
+            front.append(stones[-1])
+        if back[-1] != stones[-1]:
+            back.append(stones[-1])
+        back = [stones[0]] + back
+
+        for i in range(1, len(front)):
+            result = max(result, front[i] - front[i-1])
+        for i in range(1, len(back)):
+            result = max(result, back[i] - back[i-1])
+
+
+        return result
