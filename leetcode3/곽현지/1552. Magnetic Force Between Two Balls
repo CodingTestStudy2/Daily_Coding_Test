@@ -1,0 +1,48 @@
+
+import java.util.Arrays;
+
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        // 1. 바구니 위치 정렬
+        Arrays.sort(position);
+
+        // 2. 최소 거리의 탐색 범위 설정
+        int left = 1;
+        int right = position[position.length - 1] - position[0];
+        int answer = 0;
+
+        // 3. 이분 탐색
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            // 4. mid 거리 이상으로 m개의 공을 배치할 수 있는지 확인
+            if (canPlace(position, m, mid)) {
+                answer = mid;
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return answer;
+    }
+
+    // 공을 배치할 수 있는지 확인하는 함수
+    private boolean canPlace(int[] position, int m, int distance) {
+        int count = 1;
+        int lastPosition = position[0];
+
+        for (int i = 1; i < position.length; i++) {
+            if (position[i] - lastPosition >= distance) {
+                count++;
+                lastPosition = position[i];
+            }
+
+            if (count >= m) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}
