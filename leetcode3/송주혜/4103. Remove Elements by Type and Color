@@ -1,0 +1,17 @@
+class Solution:
+    def canRemoveAll(self, types: list[int], colors: list[int], groupSize: list[int]) -> bool:
+        arr = [] # [type, color, count]
+        result = False
+        for i, v in zip(types, colors):
+            if arr and arr[-1][0] == i and arr[-1][1] == v:
+                arr[-1][2] += 1
+
+            else:
+                arr.append([i, v, 1])
+
+            if arr[-1][2] == groupSize[i]:
+                arr.pop()
+
+        if not arr:
+            result = True
+        return result
