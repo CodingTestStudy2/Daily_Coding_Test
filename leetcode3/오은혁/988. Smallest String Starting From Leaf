@@ -1,0 +1,37 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+class Solution:
+
+    def dfs(self,node,trace):
+        trace.append(node.val)
+        if node.left != None:self.dfs(node.left,trace)
+        if node.right != None:self.dfs(node.right,trace)
+
+        
+        if  node.left ==None and node.right==None:
+            s=""
+            
+            for i in range(len(trace)-1,-1,-1):
+                s+=chr(97+trace[i])
+            
+            self.ans.append(s)
+        trace.pop()
+            
+
+
+
+        
+
+
+    def smallestFromLeaf(self, root: TreeNode | None) -> str:
+
+        self.ans=[]
+        self.dfs(root,[])
+       
+        return sorted(self.ans)[0]
