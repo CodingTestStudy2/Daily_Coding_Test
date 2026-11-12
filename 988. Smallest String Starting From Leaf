@@ -1,0 +1,28 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+from collections import deque
+
+class Solution:
+    def smallestFromLeaf(self, root: TreeNode | None) -> str:
+        def ch(node):
+            return chr(node.val + 97) # 'a': 97
+
+        result = []
+        q = deque([(root, ch(root))])
+
+        while q:
+            node, cur = q.popleft()
+            if not node.left and not node.right:
+                result.append(cur)
+                continue
+            if node.left:
+                q.append((node.left, ch(node.left) + cur))
+            if node.right:
+                q.append((node.right, ch(node.right) + cur))
+
+
+        return min(result)
