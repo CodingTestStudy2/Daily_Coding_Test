@@ -1,0 +1,16 @@
+from itertools import combinations
+from collections import Counter
+
+class Solution:
+    def c(self,cookie):
+        for i in range(1,len(cookie)):
+
+            for s in combinations(cookie,i):
+                temp.append(sum(s))
+                
+
+    def distributeCookies(self, cookies: list[int], k: int) -> int:
+        
+
+
+        
