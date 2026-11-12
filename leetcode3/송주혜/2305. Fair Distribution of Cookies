@@ -1,0 +1,11 @@
+class Solution:
+    def distributeCookies(self, cookies: list[int], k: int) -> int:
+        cookies.sort(reverse=True)
+        result = 10e9
+
+        def dfs(idx):
+
+
+        dfs(0)
+
+        return result
