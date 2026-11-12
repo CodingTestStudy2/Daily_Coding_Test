@@ -1,0 +1,27 @@
+class Solution {
+    String ans = null; 
+
+    public String smallestFromLeaf(TreeNode root) {
+        StringBuilder sb = new StringBuilder();     // 노드 위치
+        dfs(root, sb); 
+        return ans; 
+    }
+
+    private void dfs(TreeNode node, StringBuilder sb) {
+        // 노드가 없는 경우 
+        if (node == null) {
+            return;
+        }
+
+        // 숫자 -> 문자로 변환 
+        char c = (char) ('a' + node.val);
+        sb.append(c);
+
+        // 리프 노드에 도착한 경우 
+        if (node.left == null && node.right == null) {
+            String cur = sb.reverse().toString();
+            sb.reverse();       // 노드 역순으로 돌아가기
+        }
+        return sb;
+    }
+}
