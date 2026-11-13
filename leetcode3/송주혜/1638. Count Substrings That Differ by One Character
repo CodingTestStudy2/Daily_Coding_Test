@@ -1,0 +1,15 @@
+class Solution:
+    def countSubstrings(self, s: str, t: str) -> int:
+        result = 0
+        for i in range(len(s)):
+            for j in range(len(t)):
+                gap = 0
+                for k in range(min(len(s)-i, len(t)-j)):
+                    if s[i+k] != t[j+k]:
+                        gap += 1
+
+                    if gap == 1:
+                        result += 1
+                    else:
+                        break
+        return result
