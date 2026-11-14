@@ -1,0 +1,66 @@
+class SQL:
+
+    def __init__(self, names: list[str], columns: list[int]):
+        self.cols = {}
+        self.rows = {}
+        self.next = {}
+
+        for i in range(len(names)):
+            name = names[i]
+            self.cols[name] = columns[i]
+            self.rows[name] = {}
+            self.next[name] = 1
+
+    def ins(self, name: str, row: list[str]) -> bool:
+        
+        if name not in self.cols:  # 테이블이 없다면
+            return False
+
+        if len(row) != self.cols[name]: # 컬럼수가 안 맞으면
+            return False
+
+        self.rows[name][self.next[name]] = row
+
+        self.next[name] += 1
+        return True
+
+    def rmv(self, name: str, rowId: int) -> None:
+        if name not in self.rows:
+            return
+
+        if rowId in self.rows[name]:
+            del self.rows[name][rowId]
+
+    def sel(self, name: str, rowId: int, columnId: int) -> str:
+        if name not in self.rows:
+            return "<null>"
+
+        if columnId < 1 or columnId > self.cols[name]:
+            return "<null>"
+
+        if rowId not in self.rows[name]:
+            return "<null>"
+
+        row = self.rows[name][rowId]
+        return row[columnId - 1]
+
+    def exp(self, name: str) -> list[str]:
+        result = []
+        
+        if name not in self.rows:
+            return []
+
+        for i, v in self.rows[name].items():
+            result.append(str(i) + "," + ",".join(v))
+
+        return result
+
+# Your SQL object will be instantiated and called as such:
+# obj = SQL(names, columns)
+# param_1 = obj.ins(name,row)
+# obj.rmv(name,rowId)
+# param_3 = obj.sel(name,rowId,columnId)
+# param_4 = obj.exp(name)
+
+
+## 실패해서 도움 받음
