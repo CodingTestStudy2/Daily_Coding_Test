@@ -1,0 +1,35 @@
+class Solution:
+    def smallestSubsequence(self, s: str) -> str:
+        
+        v=[set() for _ in range(len(s))]
+        trace=set()
+        for i in range(len(s)-1,-1,-1):
+            for t in trace:
+                v[i].add(t)
+            trace.add(s[i])
+        stack=[]
+        for i,c in enumerate(s):
+            if c in stack :continue
+            if not stack:
+                stack.append(c)
+                continue
+            if stack[-1]<c:
+                stack.append(c)
+            else:
+                while stack:
+
+                    if stack[-1]>c and stack[-1] in v[i]:
+
+                        stack.pop()
+                    else:break
+                stack.append(c)
+                
+        return "".join(stack)
+
+
+
+
+
+       
+
+        
