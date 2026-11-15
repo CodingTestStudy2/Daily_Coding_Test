@@ -1,0 +1,19 @@
+class Solution:
+    def maxSum(self, nums: List[int], k: int) -> int:
+        bins = [0] * 31
+        result = [0] * k
+
+        for num in nums:
+            i = 0
+            while num > 0:
+                if num % 2 == 1:
+                    bins[i] += 1 # 각 수 마다 자리를 증가시킴
+                num //= 2
+                i+= 1
+
+        
+        for i in range(31):
+            for j in range(min(bins[i], k)):
+                result[j] += 2 ** i
+
+        return sum(x * x for x in result) % (10**9 + 7)
