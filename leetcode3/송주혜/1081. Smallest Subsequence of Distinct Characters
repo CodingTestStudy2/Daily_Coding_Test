@@ -1,0 +1,23 @@
+from collections import Counter
+
+class Solution:
+    def smallestSubsequence(self, s: str) -> str:
+        result = []
+
+        for i in range(len(set(s))):
+
+            cnt = Counter(s)
+            print(i, cnt)
+            pos = 0
+
+            for i, c in enumerate(s):
+                if c < s[pos]:
+                    pos = i
+                cnt[c] -= 1
+                if cnt[c] == 0:
+                    break
+
+            result.append(s[pos])                  
+            s = s[pos + 1:].replace(s[pos], "")   
+
+        return "".join(result)
