@@ -1,0 +1,36 @@
+class TweetCounts:
+
+    def __init__(self):
+        self.dict = {}
+
+    def recordTweet(self, tweetName: str, time: int) -> None:
+        # second 기준
+
+        if tweetName not in self.dict:
+            self.dict[tweetName] = []
+
+        self.dict[tweetName].append(time)
+
+        print(self.dict)
+
+    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> list[int]:
+    # minute / hour / day
+
+        if freq == "minute":
+            seconds = 60
+        elif freq == "hour":
+            seconds = 3600
+        else:
+            seconds = 86400
+
+        result = [0] * ((endTime - startTime) // seconds+1)
+
+        if tweetName not in self.dict:
+            return result
+
+        for i in self.dict[tweetName]:
+            if startTime <= i <= endTime:
+                idx = (i - startTime) // seconds
+                result[idx] += 1
+
+        return result
