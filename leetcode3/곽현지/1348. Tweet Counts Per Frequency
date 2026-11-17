@@ -1,0 +1,56 @@
+// 시간복잡도 : O(N+K) => 저장된 트윗 N개를 모두 순회하고 결과 리스트(O(K))로 변환
+
+class TweetCounts {
+    private Map<String, TreeMap<Integer, Integer>> tweetMap; 
+
+    public TweetCounts() {
+        tweetMap = new HashMap<>();    
+    }
+    
+    // 트윗 기록 
+    public void recordTweet(String tweetName, int time) {
+        tweetMap.putIfAbsent(tweetName, new TreeMap<>());
+        TreeMap<Integer, Integer> timeMap = tweetMap.get(tweetName);
+        timeMap.put(time, timeMap.getOrDefault(time, 0) + 1);
+    }
+    
+    // 트윗 수 집계
+    public List<Integer> getTweetCountsPerFrequency(String freq, String tweetName, int startTime, int endTime) {
+        List<Integer> result = new ArrayList<>(); 
+        // 해당 트윗이 없을 경우 값 반환 
+        if (!tweetMap.containsKey(tweetName)) {
+            return result; 
+        }
+
+        int interval = 0; 
+        // 조회 단위 설정 
+        switch (freq) {
+            case "minute":
+                interval = 60; 
+                break;
+            case "hour":
+                interval = 3600; 
+                break; 
+            case "day" :
+                interval = 86400; 
+                break;  
+            default: 
+                throw new IllegalArgumentException("Invalid frequency");
+        }
+
+        TreeMap<Integer, Integer> timeMap = tweetMap.get(tweetName);
+        int start = startTime;      // 시작 시간 
+        while (start <= endTime) {
+            int end = Math.min(start + interval - 1, endTime); 
+            int count = 0; 
+
+            for (Map.Entry<Integer, Integer> entry : timeMap.subMap(start, true, end, true).entrySet()) {
+                count += entry.getValue();
+            }
+            result.add(count); 
+            start += interval;
+        }
+
+        return result; 
+    }
+}
