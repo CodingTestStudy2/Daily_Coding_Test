@@ -1,0 +1,40 @@
+class TweetCounts:
+
+    def __init__(self):
+        self.tweets={}
+        self.time_dict={"minute":60,"hour":3600,"day":86400}
+        
+
+    def recordTweet(self, tweetName: str, time: int) -> None:
+        if tweetName in self.tweets:
+
+            self.tweets[tweetName].append(time)
+        else:
+            self.tweets[tweetName]=[time]
+        
+
+    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> list[int]:
+            self.ans=[]
+            
+            while startTime<=endTime:
+                cnt=0
+                for a in self.tweets[tweetName]:
+                    if a>=startTime and a<=startTime+self.time_dict[freq]-1:
+                        cnt+=1
+                self.ans.append(cnt)
+
+
+                startTime+=self.time_dict[freq]
+            return self.ans
+
+
+
+       
+
+        
+
+
+# Your TweetCounts object will be instantiated and called as such:
+# obj = TweetCounts()
+# obj.recordTweet(tweetName,time)
+# param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime)
