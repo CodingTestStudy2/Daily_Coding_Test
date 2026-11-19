@@ -1,0 +1,20 @@
+class Solution:
+    def maxValue(self, n: int, index: int, maxSum: int) -> int:
+        numbers = [1] * n
+        tmp = maxSum - n # 남은거
+        left = index
+        right = index
+
+        while True:
+            value = right - left + 1 # 개수
+            if tmp < value:
+                break
+
+            for i in range(left, right + 1):
+                numbers[i] += 1
+            tmp -= value
+
+            print(tmp, value)
+
+
+            

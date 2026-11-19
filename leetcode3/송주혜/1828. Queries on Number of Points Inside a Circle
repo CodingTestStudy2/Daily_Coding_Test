@@ -1,0 +1,15 @@
+class Solution:
+    def countPoints(self, points: list[list[int]], queries: list[list[int]]) -> list[int]:
+            result = []
+
+            for x, y, r in queries:
+                cnt = 0
+
+                for i, j in points:
+                    if (i-x)**2 + (j-y)**2 <= r**2:
+                        cnt +=1
+
+                result.append(cnt)
+            return result
+
+    ## 시간복잡도: O(n^2)
