@@ -23,7 +23,8 @@ class Solution:
 
         def get_total(distance, count):
             if distance > count:
-                return (distance - 1 + distance - count) * count // 2
+                exceed = distance - count
+                return distance * (distance - 1) // 2 - exceed * (exceed - 1) // 2
             else:
                 return distance * (distance - 1) // 2 + (count - distance + 1)
 
