@@ -25,7 +25,7 @@ class Solution:
             if distance > count:
                 return (distance - 1 + distance - count) * count // 2
             else:
-                return distance * (distance - 1) // 2 - (distance - count - 1)
+                return distance * (distance - 1) // 2 + (count - distance + 1)
 
         def calculate_total(distance):
             left_total = get_total(distance, left_nums)
