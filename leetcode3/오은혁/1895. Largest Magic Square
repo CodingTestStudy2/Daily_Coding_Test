@@ -1,0 +1,49 @@
+class Solution:
+    def largestMagicSquare(self, grid: list[list[int]]) -> int:
+        ans=1
+        for y in range(len(grid)):
+            for x in range(len(grid[0])):
+                for size in range(2,min(len(grid)-y+1 , len(grid[0])-x+1)):
+                    if size<=ans:continue
+                    f=True
+                    temp=grid[y:y+size]
+                    temp=[a[x:x+size]  for a in temp]
+                    row=sum(temp[0])
+                    colume=0
+                    for ny in range(size):
+                        colume+=temp[ny][0]
+
+
+                    for b in temp:
+                        if sum(b)!=row:
+                            f=False
+                            break
+                    for nx in range(1,size):
+                        s=0
+                        for ny in range(size):
+                            s+=temp[ny][nx]
+                        if s!=colume:
+                            f=False
+                            break
+                    a=0
+                    b=0
+                    for i in range(size):
+                        a+=temp[0+i][0+i]
+                    for i in range(size):
+                        b+=temp[0+i][size-1-i]
+                    if a!=b:f=False
+                    if row!=colume:f=False
+                    if row!=a:f=False
+                    
+                    
+                    
+
+
+                    if f:ans=size
+
+                    
+
+        return ans
+
+
+        
