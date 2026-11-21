@@ -1,0 +1,32 @@
+class Solution:
+    def search(self,cnt,tasks,mask,lt,dp,sessionTime):
+        if dp[mask][0]<cnt:return
+        if dp[mask][0]==cnt and dp[mask][1] >= lt:return 
+
+        dp[mask][0]=cnt
+        dp[mask][1]=lt
+
+
+
+
+
+
+        for i in range(len(tasks)):
+            if mask & (1<<i) != 0:continue
+            if lt>=tasks[i]:
+                self.search(cnt,tasks,mask | (1<<i),lt-tasks[i],dp,sessionTime)
+            else:
+                self.search(cnt+1,tasks,mask | (1<<i),sessionTime-tasks[i],dp,sessionTime)
+            
+
+
+
+    def minSessions(self, tasks: list[int], sessionTime: int) -> int:
+        mask=1
+        dp=[[float('inf'),-float('inf')]  for _ in range(2**len(tasks))]
+        
+
+        self.search(1,tasks,mask,sessionTime-tasks[0],dp,sessionTime)
+        
+        return dp[-1][0]
+        
