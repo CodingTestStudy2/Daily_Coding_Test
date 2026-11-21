@@ -1,0 +1,25 @@
+class Solution:
+    def minSessions(self, tasks, sessionTime):
+        self.result = len(tasks)
+        sessions = []
+
+        def put(i):
+            if len(sessions) >= self.result:
+                return
+            if i == len(tasks):              
+                self.result = len(sessions)
+                return
+
+            for k in range(len(sessions)):
+                if sessions[k] + tasks[i] <= sessionTime:
+                    sessions[k] += tasks[i]
+                    put(i + 1)
+                    sessions[k] -= tasks[i] 
+
+            sessions.append(tasks[i]) 
+            put(i + 1)
+            sessions.pop() 
+
+        tasks.sort(reverse=True)
+        put(0)
+        return self.result
