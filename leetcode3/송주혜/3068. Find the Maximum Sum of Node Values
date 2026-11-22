@@ -1,0 +1,20 @@
+class Solution:
+    def maximumValueSum(self, nums: List[int], k: int, edges: List[List[int]]) -> int:
+        result = 0
+        cnt = 0
+        min_value = 1e9
+
+        for i in nums:
+            j = i ^ k
+            result += max(i, j) # 노드마다 큰 쪽 고름 (안바꾸면 i, 바꾸면 j)
+
+            if j > i:
+                cnt += 1
+
+            min_value = min(abs(j-i), min_value)
+
+
+        if cnt % 2 != 0: # 홀수면 하나 더 포함됐기에 빼야함
+            reulst -= min_value
+
+        return result
