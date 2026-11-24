@@ -1,0 +1,29 @@
+class Solution {
+    public int minScoreTriangulation(int[] values) {
+        int n = values.length;  // 꼭짓점의 위치를 나타내는 인덱스 값 
+        int[][] dp = new int[n][n];     // 꼭짓점 위치 
+
+        // 구간 길이 len (최소 3개의 꼭짓점이 필요하므로 2부터 시작)
+        for (int len = 2; len < n; len++) {
+            for (int i = 0; i + len < n; i++) {
+                int j = i + len; 
+                dp[i][j] = Integer.MAX_VALUE; 
+
+                for (int k = i + 1; k < j; k++) {
+                    // 대각선의 위치와 한 삼각형의 세 개의 꼭짓점에 위치한 숫자들의 곱을 더하기 
+                    int score = dp[i][k] + dp[k][j] + values[i] * values[k] * values[j];
+                    
+                    // 특정 위치의 값이 목표 점수보다 클 때 
+                    if (score < dp[i][j]) {
+                        dp[i][j] = score;
+                    }
+                }
+            }
+        }
+
+        // 결과값 출력 
+        return dp[0][n - 1];
+    }
+}
+
+// 시간 복잡도 : O(n^3) => 삼중 반복문을 사용 
