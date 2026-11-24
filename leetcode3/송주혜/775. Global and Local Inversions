@@ -1,0 +1,15 @@
+class Solution:
+    def isIdealPermutation(self, nums: list[int]) -> bool:
+        n = len(nums)
+        global_i = 0
+        local = 0
+
+        for i in range(n):
+            for j in range(i + 1, n):
+                if nums[i] > nums[j]:
+                    global_i += 1
+        
+        for i in range(n - 1):
+            if nums[i] > nums[i + 1]:
+                local += 1
+        return global_i == local
