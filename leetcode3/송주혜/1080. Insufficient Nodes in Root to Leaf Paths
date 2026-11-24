@@ -1,0 +1,35 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sufficientSubset(self, root: TreeNode | None, limit: int) -> TreeNode | None:
+        
+        result = 0
+
+        def dfs(node, total):
+
+            if node is None:
+                return None
+
+            total += node.val
+            print(total)
+
+            # 리프노드인 경우 -> 합산 가능
+            if node.right is None and node.left is None:
+                if total < limit:
+                    return None
+                return node
+
+            # 리프노드가 아닌 경우
+            node.right = dfs(node.right, total)
+            node.left = dfs(node.left, total)
+
+            if node.right is None and node.left is None:
+                return None
+            return node
+
+        result = dfs(root, 0)
+        return result
