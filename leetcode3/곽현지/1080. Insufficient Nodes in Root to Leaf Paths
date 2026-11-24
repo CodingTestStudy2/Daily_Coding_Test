@@ -1,0 +1,38 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+ 
+// 부모 노드로부터 상속한 특정 노드와의 합 값이 목표 값보다 미만일 때, 부모 노드를 제외한, 자식 노드들을 제거하는 방식 
+class Solution {
+    public TreeNode sufficientSubset(TreeNode root, int limit) {
+        if (root == null) {
+            return null;
+        }
+
+        // 리프 노드인 경우 : 현재 노드의 값이 남은 limit보다 작으면 삭제 (null 반환)
+        if (root.left == null && root.right == null) {
+            return root.val < limit ? null : root;
+        }
+
+        // 리프 노드가 아닌 경우 : 좌/우 서브트리 재귀 탐색 (limit에서 현재 노드 값 차감)
+        root.left = sufficientSubset(root.left, limit - root.val);
+        root.right = sufficientSubset(root.right, limit - root.val);
+
+        // 탐색 후 좌/우 자식이 모두 삭제되었다면 현재 노드도 불충분한 노드이므로 삭제 
+        return (root.left == null && root.right == null) ? null : root;
+    }
+}
+
+// 시간 복잡도 : O(n) => 노드를 한 개씩 조회
