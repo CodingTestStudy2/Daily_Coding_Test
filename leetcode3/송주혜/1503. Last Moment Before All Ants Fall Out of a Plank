@@ -1,0 +1,16 @@
+class Solution:
+    def getLastMoment(self, n: int, left: list[int], right: list[int]) -> int:
+        ants = [[i, -1] for i in left] + [[i, 1] for i in right] # 왼쪽은 -1, 오른쪽은 1
+        time = 0
+        live = []
+
+        for i in ants:
+            x, y = i[0], i[1]
+
+            if x == 0 and y == -1: # 0에서 왼쪽 방향이면 떨어짐
+                continue
+            if x == n and y == 1: 
+                continue
+            live.append(i)
+        ants = live
+
